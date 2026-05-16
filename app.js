@@ -90,18 +90,6 @@ app.post('/listings', validateListing, wrapAsync(async (req, res) => {
 }));
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 // ============================================
 // LISTINGS - READ
 // ============================================
@@ -161,6 +149,7 @@ app.delete('/listings/:id', validateId, wrapAsync(async (req, res) => {
     await listing.findByIdAndDelete(id);
     res.redirect('/listings');
 }));
+
 
 
 // ============================================

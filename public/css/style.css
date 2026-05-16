@@ -1,0 +1,151 @@
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.navbar-brand i {
+    font-size: 1.5rem;
+}
+
+.fa-compass {
+    color: #fb424d;
+    font-size: 2rem;
+}
+
+.nav-link {
+    font-size: 1.2rem;
+    color: #222222 !important;
+}
+
+.nav-link:hover {
+    color: #fb424d !important;
+}
+
+
+.navbar {
+    background-color: #f8f9fa;
+    
+}
+
+
+
+.f-info {
+    height:8rem;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: space-evenly;
+    vertical-align: middle;
+}
+
+
+.f-info-links  {
+    text-decoration: none;
+    width: 100%;
+    color: #851b1b;
+}
+
+.f-info-links a:hover {
+    color: #f30a92;
+    text-decoration: underline;
+}
+
+
+.f-info-socials {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height:4.5rem;
+    align-items: center;
+    vertical-align: middle;
+}   
+
+
+
+.card {
+    border: none !important;
+    margin-bottom: 2rem;
+
+
+}
+
+
+.card-img-top {
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+    height: 15rem !important;
+}
+
+.card-body {
+    padding: 0 !important;
+}
+
+
+.card-text p{
+        font-weight: 500 !important;
+}
+
+.card-img-overlay {
+        opacity: 0;
+        transition: opacity .2s ease;
+}
+
+.card:hover .card-img-overlay {
+        opacity: 0.8;
+        background-color: rgba(255,255,255,0.85);
+}
+
+/* Form / Airbnb-like theme */
+:root {
+    --accent: #FF5A5F;
+    --muted: #6c757d;
+}
+
+.listing-form-card {
+    border-radius: .75rem;
+    overflow: hidden;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #222;
+}
+
+.form-control {
+    border-radius: .6rem;
+    box-shadow: none;
+    border: 1px solid #e6e6e6;
+}
+
+.btn-primary {
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+.btn-primary:hover {
+    background-color: #e14b50;
+    border-color: #e14b50;
+}
+
+.edit-btn {
+    background-color: #fe424d !important;
+    border: none !important;
+}
+
+.show-img {
+    height: 30vh;
+}
+
+.show-card {
+    padding: 0;
+}
+
+.btns {
+    display: flex;
+}
+
+.add-btn {
+    background-color: #fe424d !important;
+    border: none !important;
+}

@@ -1,0 +1,39 @@
+<% layout('layouts/boilerplate') %>
+<div class="row mt-3">
+    <div class="col-8 offset-3 mt-3">
+        <h3><%= Listing.title %></h3>
+    </div>
+    <div class="card col-6 offset-3 show-card">
+        <img src="<%= Listing.image %>" class="card-img-top show-img" alt="listing_image">
+        <div class="card-body">
+            <ul class="list-unstyled">
+                <li><%= Listing.description %></li>
+                <li>&#8377; <%= Listing.price.toLocaleString("en-IN") %></li>
+                <li><%= Listing.location %></li>
+                <li><%= Listing.country %></li>
+            </ul>
+        </div>
+    </div>
+    <div class="btns">
+        <a href="/listings/<%=Listing._id%>/edit" class="btn btn-dark col-1 offset-3 edit-btn">Edit</a>
+        <form method="POST" action="/listings/<%=Listing._id%>?_method=DELETE">
+            <button class="btn btn-dark offset-5">Delete</button>
+        </form>
+    </div>
+
+
+    <div>
+        <h4 class="mt-5">leave a review</h4>
+        <form method="POST" action="/listings/<%=Listing._id%>/reviews">
+            <div class="mb-3">
+                <label for="review" class="form-label">Review</label>
+                <input type="text" class="form-control" id="review" name="review[body]">
+            </div>
+            <div class="mb-3">
+                <label for="rating" class="form-label">Rating</label>
+                <input type="number" class="form-control" id="rating" name="review[rating]" min=1 max=5>
+            </div>
+            <button type="submit" class="btn btn-dark">Submit</button>
+        
+    </div>
+</div>

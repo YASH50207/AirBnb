@@ -21,19 +21,117 @@
         </form>
     </div>
 
+    <div class="col-12 col-lg-8 offset-lg-2 mt-5">
+        <h4 class="mb-3">Reviews</h4>
+        <% if (Listing.reviews && Listing.reviews.length) { %>
+            <div class="row g-3">
+                <% for (let review of Listing.reviews) { %>
+                    <% const reviewText = review.comment || ''; %>
+                    <div class="col-12">
+                        <div class="review-item card border-0 shadow-sm rounded-4 p-4">
+                            <div class="d-flex justify-content-between align-items-start gap-3 mb-2">
+                                <div>
+                                    <div class="d-flex align-items-center gap-2 mb-1">
+                                        <div class="review-avatar">
+                                            <i class="fa-solid fa-user"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0">Guest</h6>
+                                            <small class="text-muted"><%= review.date ? review.date.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) : '' %></small>
+                                        </div>
+                                    </div>
+                                    <div class="review-stars mb-2">
+                                        <% for (let i = 1; i <= 5; i++) { %>
+                                            <i class="fa-solid fa-star <%= i <= review.rating ? 'filled' : 'empty' %>"></i>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <span class="review-score"><%= review.rating %>/5</span>
+                            </div>
+                            <p class="mb-0 review-body"><%= reviewText %></p>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        <% } else { %>
+            <p class="text-muted mb-0">No reviews yet. Be the first to share your experience.</p>
+        <% } %>
+    </div>
 
-    <div>
-        <h4 class="mt-5">leave a review</h4>
-        <form method="POST" action="/listings/<%=Listing._id%>/reviews">
-            <div class="mb-3">
-                <label for="review" class="form-label">Review</label>
-                <input type="text" class="form-control" id="review" name="review[body]">
+
+    <div class="col-12 col-lg-8 offset-lg-2 mt-5">
+        <div class="review-card p-4 p-md-5">
+            <div class="review-header d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2 mb-4">
+                <div>
+                    <p class="review-eyebrow mb-1">Guest review</p>
+                    <h4 class="mb-0">How was your stay?</h4>
+                </div>
+                <div class="review-mini-note">
+                    <i class="fa-solid fa-star"></i>
+                    <span>Share an honest rating</span>
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="rating" class="form-label">Rating</label>
-                <input type="number" class="form-control" id="rating" name="review[rating]" min=1 max=5>
-            </div>
-            <button type="submit" class="btn btn-dark">Submit</button>
-        
+
+            <form id="reviewForm" method="POST" action="/listings/<%=Listing._id%>/reviews" class="needs-validation" novalidate>
+                <div class="mb-4">
+                    <label class="form-label review-label">Overall rating</label>
+                    <div class="star-rating d-flex flex-row-reverse justify-content-end" role="radiogroup" aria-labelledby="rating-label">
+                        <input type="radio" id="star5" name="review[rating]" value="5" required />
+                        <label for="star5" title="5 stars"><i class="fa-solid fa-star"></i></label>
+                        <input type="radio" id="star4" name="review[rating]" value="4" />
+                        <label for="star4" title="4 stars"><i class="fa-solid fa-star"></i></label>
+                        <input type="radio" id="star3" name="review[rating]" value="3" />
+                        <label for="star3" title="3 stars"><i class="fa-solid fa-star"></i></label>
+                        <input type="radio" id="star2" name="review[rating]" value="2" />
+                        <label for="star2" title="2 stars"><i class="fa-solid fa-star"></i></label>
+                        <input type="radio" id="star1" name="review[rating]" value="1" />
+                        <label for="star1" title="1 star"><i class="fa-solid fa-star"></i></label>
+                    </div>
+                    <div class="invalid-feedback rating">Please provide a rating.</div>
+                    <div class="form-text review-help">Pick the rating that best matches your experience.</div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="review" class="form-label review-label">Review</label>
+                    <textarea class="form-control review-textarea" id="review" name="review[comment]" rows="4" placeholder="What stood out during your stay?" required></textarea>
+                    <div class="invalid-feedback comment">Please enter a comment.</div>
+                </div>
+
+                <button type="submit" class="btn btn-dark review-submit">Submit Review</button>
+            </form>
+            <script>
+                (function(){
+                    const form = document.getElementById('reviewForm');
+                    if (!form) return;
+                    const ratingFeedback = form.querySelector('.invalid-feedback.rating');
+                    const commentFeedback = form.querySelector('.invalid-feedback.comment');
+
+                    form.addEventListener('submit', function(e){
+                        let valid = true;
+                        const rating = form.querySelector('input[name="review[rating]"]:checked');
+                        const comment = (form.querySelector('textarea[name="review[comment]"]') || {}).value || '';
+
+                        if (!rating) {
+                            valid = false;
+                            if (ratingFeedback) ratingFeedback.style.display = 'block';
+                        } else if (ratingFeedback) {
+                            ratingFeedback.style.display = 'none';
+                        }
+
+                        if (!comment.trim()) {
+                            valid = false;
+                            if (commentFeedback) commentFeedback.style.display = 'block';
+                        } else if (commentFeedback) {
+                            commentFeedback.style.display = 'none';
+                        }
+
+                        if (!valid) {
+                            e.preventDefault();
+                            form.classList.add('was-validated');
+                        }
+                    });
+                })();
+            </script>
+        </div>
     </div>
 </div>
